@@ -1,4 +1,4 @@
-const sequelize = require('../connection/index')
+const { sequelize } = require('../connection/index')
 const { DataTypes } = require('sequelize')
 
 const Type = sequelize.define('type', {
@@ -11,4 +11,4 @@ const Type = sequelize.define('type', {
   timestamps: false
 })
 
-module.exports = Type
+module.exports = { Type }

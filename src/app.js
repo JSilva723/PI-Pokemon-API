@@ -1,12 +1,12 @@
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
-const routes = require('./routes/index.js')
-const server = express()
+const { routes } = require('./routes/index.js')
+const app = express()
 
-server.use(cors()) // Allow everyone to share resources
-server.use(express.json()) // Acept format JSON in requests
-server.use(morgan('dev')) // Log info in consola
-server.use(routes) // Routes
+app.use(cors()) // Allow everyone to share resources
+app.use(express.json()) // Acept format JSON in requests
+app.use(morgan('dev')) // Log info in consola
+app.use(routes) // Routes
 
-module.exports = server
+module.exports = { app }

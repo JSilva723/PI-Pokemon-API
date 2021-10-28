@@ -1,11 +1,11 @@
-const router = require('express').Router()
-const pokemons = require('./pokemons')
-const types = require('./types')
+const routes = require('express').Router()
+const { pokemons } = require('./pokemons')
+const { types } = require('./types')
 const handleErrors = require('./handleErrors')
 
-router.use('/pokemons', pokemons) // Routes of pokemons
-router.use('/types', types) // Route of type
-router.use((_req, res) => res.status(404).json('Not found'))
-router.use(handleErrors) // Error catching endware.
+routes.use('/pokemons', pokemons) // Routes of pokemons
+routes.use('/types', types) // Route of type
+routes.use((_req, res) => res.status(404).json('Not found'))
+routes.use(handleErrors) // Error catching endware.
 
-module.exports = router
+module.exports = { routes }

@@ -1,6 +1,6 @@
-const sequelize = require('../connection/index')
+const { sequelize } = require('../connection/index')
 const { DataTypes } = require('sequelize')
-const Type = require('./Type')
+const { Type } = require('./Type')
 
 const Pokemon = sequelize.define('pokemon', {
   id: {
@@ -12,7 +12,8 @@ const Pokemon = sequelize.define('pokemon', {
   name: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true
+    unique: true,
+    validate: { notEmpty: true }
   },
   hp: { type: DataTypes.INTEGER },
   attack: { type: DataTypes.INTEGER },
@@ -37,4 +38,4 @@ const Pokemon = sequelize.define('pokemon', {
 Pokemon.belongsToMany(Type, { through: 'PokemonType', timestamps: false })
 Type.belongsToMany(Pokemon, { through: 'PokemonType', timestamps: false })
 
-module.exports = Pokemon
+module.exports = { Pokemon }

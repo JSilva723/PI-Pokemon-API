@@ -1,26 +1,18 @@
 const ERRORS = {
-  dafaultError: (res) => {
-    return res.status(500).json('Ups')
-  },
-  SequelizeDatabaseError: (res) => {
-    return res.status(400).json('Error de sintaxis el id debe ser del tipo UUID')
-  },
-  TypeError: (res, _err) => {
-    return res.status(403).json('Error de tipo A clasificar')
-  },
-  Error: (res, _err) => {
-    return res.status(404).json('Not Found')
-  },
-  SequelizeUniqueConstraintError: (res, err) => {
-    return res.status(406).json('Error el nombre debe ser UNICO')
-  },
-  SequelizeValidationError: (res, err) => {
-    return res.status(500).json('Error al cargar los datos en la BD')
-  }
+  // Attr type uuid
+  SequelizeDatabaseError: (res, err) => res.status(406).json(err),
+  // Unique attr
+  SequelizeUniqueConstraintError: (res, err) => res.status(406).json(err),
+  // Not null attrs
+  SequelizeValidationError: (res, err) => res.status(406).json(err),
+  Error: (res, err) => res.status(404).json('not found')
 }
 
-module.exports = (err, _req, res, _next) => {
-  console.error(err) // eslint-disable-line no-console
-  const handler = ERRORS[err.name] || ERRORS.dafaultError
-  handler(res)
+module.exports = (err, req, res, next) => {
+  // eslint-disable-next-line no-prototype-builtins
+  if (!ERRORS.hasOwnProperty(err.name)) {
+    console.error('This error not handled', err) // eslint-disable-line no-console
+    return res.status(500).json('UPS')
+  }
+  return ERRORS[err.name](res, err)
 }

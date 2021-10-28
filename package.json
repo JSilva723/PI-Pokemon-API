@@ -38,21 +38,5 @@
     "nodemon": "^2.0.6",
     "supertest": "^6.0.1",
     "supertest-session": "^4.1.0"
-  },
-  "eslintConfig": {
-    "env": {
-      "browser": true,
-      "commonjs": true,
-      "es2021": true
-    },
-    "extends": [
-      "standard"
-    ],
-    "parserOptions": {
-      "ecmaVersion": 12
-    },
-    "rules": {
-      "no-console": "warn"
-    }
   }
 }

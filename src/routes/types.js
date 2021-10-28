@@ -1,10 +1,12 @@
 const types = require('express').Router()
-const Type = require('../db/models/Type')
+const { Type } = require('../db/models/Type')
+const { DBService } = require('../services/db')
+const db = new DBService()
 
 types.get('/', (_req, res, next) => {
-  Type.findAll() // Get all types in DB
+  db.getAllItems(Type) // Get all types in DB
     .then(response => res.json(response))
     .catch(err => next(err))
 })
 
-module.exports = types
+module.exports = { types }
