@@ -1,5 +1,5 @@
-const { sequelize } = require('../connection/index')
-const { DataTypes } = require('sequelize')
+const { sequelize } = require('../connection/index');
+const { DataTypes } = require('sequelize');
 
 const Type = sequelize.define('type', {
   name: {
@@ -9,6 +9,6 @@ const Type = sequelize.define('type', {
   }
 }, {
   timestamps: false
-})
+});
 
-module.exports = { Type }
+module.exports = { Type };

@@ -1,6 +1,6 @@
-const { sequelize } = require('../connection/index')
-const { DataTypes } = require('sequelize')
-const { Type } = require('./Type')
+const { sequelize } = require('../connection/index');
+const { DataTypes } = require('sequelize');
+const { Type } = require('./Type');
 
 const Pokemon = sequelize.define('pokemon', {
   id: {
@@ -24,7 +24,7 @@ const Pokemon = sequelize.define('pokemon', {
   img: {
     type: DataTypes.TEXT,
     allowNull: false,
-    defaultValue: 'Ruta defaul DB'
+    defaultValue: 'https://placeimg.com/100/100/any'
   },
   created: {
     type: DataTypes.BOOLEAN,
@@ -33,9 +33,9 @@ const Pokemon = sequelize.define('pokemon', {
   }
 }, {
   timestamps: false
-})
+});
 
-Pokemon.belongsToMany(Type, { through: 'PokemonType', timestamps: false })
-Type.belongsToMany(Pokemon, { through: 'PokemonType', timestamps: false })
+Pokemon.belongsToMany(Type, { through: 'PokemonType', timestamps: false });
+Type.belongsToMany(Pokemon, { through: 'PokemonType', timestamps: false });
 
-module.exports = { Pokemon }
+module.exports = { Pokemon };
