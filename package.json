@@ -5,8 +5,7 @@
   "main": "./src/index.js",
   "scripts": {
     "start": "nodemon -L",
-    "lint": "eslint . --fix",
-    "test": "mocha -w ./tests/**/*.spec.js"
+    "lint": "eslint . --fix"
   },
   "author": "Henry",
   "license": "ISC",

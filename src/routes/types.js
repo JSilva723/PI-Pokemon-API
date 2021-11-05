@@ -1,8 +1,8 @@
 const types = require('express').Router();
-const { Type } = require('../db/models/Type');
+const { getTypes } = require('../utils/index');
 
 types.get('/', (req, res, next) => {
-  Type.findAll() // Get all types in DB
+  getTypes() // Get all types in DB
     .then(response => res.json(response))
     .catch(err => next(err));
 });

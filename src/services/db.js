@@ -3,7 +3,7 @@ const { Pokemon } = require('../db/models/Pokemon');
 
 function DBService() { }
 
-DBService.prototype.formatDetail = (obj) => ({
+DBService.prototype._formatDetail = (obj) => ({
   // Format the data with the necessary attributes
   id: obj.id,
   name: obj.name,
@@ -18,18 +18,20 @@ DBService.prototype.formatDetail = (obj) => ({
   created: obj.created
 });
 
-DBService.prototype.formatMain = (obj) => ({
+DBService.prototype._formatMain = (obj) => ({
   // Format the data with the necessary attributes
   name: obj.name,
   img: obj.img,
-  type: obj.types.map(obj => (obj.dataValues.name))
+  type: obj.types.map(obj => (obj.dataValues.name)),
+  created: obj.created,
+  attack: obj.attack
 });
 
 DBService.prototype.getAllItems = function () {
   return new Promise((resolve, reject) => {
     Pokemon.findAll({ include: [Type] })
       .then(response => {
-        const items = response.map(item => item.dataValues);
+        const items = response.map(item => this._formatMain(item.dataValues));
         resolve(items);
       })
       .catch(err => reject(err));
@@ -41,7 +43,7 @@ DBService.prototype.getItemById = function (id) {
     Pokemon.findOne({ include: [Type], where: { id: id } })
       .then(response => {
         if (response) {
-          resolve(response);
+          resolve(this._formatDetail(response));
         } else {
           throw Error(); // If id not match with some item in the db
         }
@@ -55,7 +57,7 @@ DBService.prototype.getItemByName = function (name) {
     Pokemon.findOne({ include: [Type], where: { name: name } })
       .then(response => {
         if (response) {
-          resolve(response);
+          resolve(this._formatDetail(response));
         } else {
           throw Error(); // If name not match with some item in the db
         }
@@ -73,6 +75,14 @@ DBService.prototype.insert = function (data, types) {
           .then(res => resolve(res))
           .catch(err => reject(err));
       })
+      .catch(err => reject(err));
+  });
+};
+
+DBService.prototype.getTypes = function () {
+  return new Promise((resolve, reject) => {
+    Type.findAll()
+      .then(response => resolve(response))
       .catch(err => reject(err));
   });
 };
